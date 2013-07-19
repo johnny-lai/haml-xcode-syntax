@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Xcode.SourceCodeLanguage.Haml</key>
+	<dict>
+		<key>conformsTo</key>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>Xcode.SourceCodeLanguage.Generic</string>
+			</dict>
+		</array>
+		<key>fileDataType</key>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>info.lai.johnny.sourcecode.haml</string>
+			</dict>
+		</array>
+		<key>id</key>
+		<string>Xcode.SourceCodeLanguage.Haml</string>
+		<key>languageName</key>
+		<string>Haml</string>
+		<key>languageSpecification</key>
+		<string>xcode.lang.haml</string>
+		<key>name</key>
+		<string>Haml Language</string>
+		<key>point</key>
+		<string>Xcode.SourceCodeLanguage</string>
+		<key>version</key>
+		<string>1.0</string>
+	</dict>
+</dict>
+</plist>

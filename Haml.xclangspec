@@ -1,0 +1,550 @@
+// Ruby
+(
+
+/****************************************************************************/
+// MARK: Ruby keywords
+/****************************************************************************/
+
+    {
+        Identifier = "xcode.lang.haml.identifier";
+        Syntax = {
+            StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_[";
+            Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_?[]";
+            Words = (
+                "BEGIN",
+                "END",
+                "__FILE__",
+                "__LINE__",
+                "alias",
+                "and",
+                "begin",
+                "break",
+                "case",
+                "class",
+                "def",
+                "defined?",
+                "do",
+                "else",
+                "elsif",
+                "end",
+                "ensure",
+                "false",
+                "for",
+                "if",
+                "in",
+                "module",
+                "next",
+                "nil",
+                "not",
+                "or",
+                "redo",
+                "rescue",
+                "retry",
+                "return",
+                "self",
+                "super",
+                "then",
+                "true",
+                "undef",
+                "unless",
+                "until",
+                "when",
+                "while",
+                "yield",
+                
+                "include",
+                "private",
+                "protected",
+                "public",
+                "raise",
+                "require",
+             );
+            Type = "xcode.syntax.keyword";
+            AltType = "xcode.syntax.identifier";    // non-keywords are identifiers
+        };
+    },
+
+
+/****************************************************************************/
+// MARK: Ruby Syntax Coloring
+/****************************************************************************/
+
+    {
+        Identifier = "xcode.lang.haml";
+        Description = "Ruby Coloring";
+        BasedOn = "xcode.lang.simpleColoring";
+        IncludeInMenu = YES;
+        Name = "Ruby";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer.toplevel";
+            IncludeRules = (
+                "xcode.lang.haml.module",
+                "xcode.lang.haml.class",
+                "xcode.lang.haml.function",
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",                
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+            Type = "xcode.syntax.plain";
+        };
+    },
+    {
+		// XML and HTML use this rule for embedded php
+        Identifier = "xcode.lang.haml.inxml";
+        BasedOn = "xcode.lang.haml";
+        Syntax = {
+            Start = "<%";
+            End = "%>";
+			Foldable = YES;
+            ParseEndBeforeIncludedRules = YES;
+            IncludeRules = (
+                "xcode.lang.haml",
+            );
+            Type = "xcode.syntax.keyword";
+        };
+    },
+    {
+		// XML and HTML use this rule for embedded php
+        Identifier = "xcode.lang.haml.inxml2";
+        BasedOn = "xcode.lang.haml";
+        Syntax = {
+            Start = "<%%";
+            End = "%>";
+			Foldable = YES;
+            ParseEndBeforeIncludedRules = YES;
+            IncludeRules = (
+                "xcode.lang.haml",
+            );
+            Type = "xcode.syntax.keyword";
+        };
+    },
+    
+    // The following rule returns tokens to the other rules
+    {
+        Identifier = "xcode.lang.haml.lexer";
+        Syntax = {
+            IncludeRules = (
+                "xcode.lang.haml.comment",
+                "xcode.lang.haml.stringeval",
+                "xcode.lang.comment.singleline.pound",
+                "xcode.lang.string",
+                "xcode.lang.character",
+                "xcode.lang.haml.identifier",
+                "xcode.lang.number",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.lexer.toplevel";
+        Syntax = {
+            IncludeRules = (
+                "xcode.lang.haml.comment",
+                "xcode.lang.haml.stringeval",
+                "xcode.lang.comment.singleline.pound",
+                "xcode.lang.string",
+                "xcode.lang.character",
+                "xcode.lang.haml.module.declarator",
+                "xcode.lang.haml.class.declarator",
+                "xcode.lang.haml.function.declarator",
+                "xcode.lang.haml.identifier",
+                "xcode.lang.number",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.module";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer.toplevel";
+            Start = "xcode.lang.haml.module.declarator";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.class",
+                "xcode.lang.haml.function",
+            );
+            Type = "xcode.syntax.definition.class";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.module.declarator";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Rules = (
+                "module",
+                "xcode.lang.haml.identifier",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.class";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer.toplevel";
+            Start = "xcode.lang.haml.class.declarator";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.function",
+            );
+            Type = "xcode.syntax.definition.class";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.class.declarator";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Rules = (
+                "class",
+                "xcode.lang.haml.identifier",
+                "xcode.lang.haml.superclass?"
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.superclass";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Rules = (
+                "<",
+                "xcode.lang.haml.identifier",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.function";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer.toplevel";
+            Start = "xcode.lang.haml.function.declarator";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",                
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+            Type = "xcode.syntax.definition.function";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.function.declarator";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Rules = (
+                "def",
+                "xcode.lang.haml.function.name",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.function.name";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Rules = (
+                "xcode.lang.haml.identifier",
+                "xcode.lang.haml.function.name.more?",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    {
+        Identifier = "xcode.lang.haml.function.name.more";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Rules = (
+                ".",
+                "xcode.lang.haml.identifier",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    
+/****************************************************************************/
+// MARK: Ruby blocks
+/****************************************************************************/
+ {
+        Identifier = "xcode.lang.haml.block";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "{";
+            End = "}";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",                
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.if";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "if";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.while";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "while";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.until";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "until";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.unless";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "unless";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.for";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "for";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.case";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "case";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.begin",
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.begin";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "begin";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.do",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.block.do";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "do";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.block",
+                "xcode.lang.haml.block.if",
+                "xcode.lang.haml.block.while",
+                "xcode.lang.haml.block.until",
+                "xcode.lang.haml.block.unless",
+                "xcode.lang.haml.block.for",
+                "xcode.lang.haml.block.case",
+                "xcode.lang.haml.block.begin",
+                "xcode.lang.haml.bracketexpr",
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.parenexpr";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "(";
+            End = ")";
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.bracketexpr",
+            );
+        };
+    },
+    {
+        Identifier = "xcode.lang.haml.bracketexpr";
+        Syntax = {
+            Tokenizer = "xcode.lang.haml.lexer";
+            Start = "[";
+            End = "]";
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.haml.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.haml.stringeval";
+        Syntax = {
+            Start = "#{";
+            End = "}";
+        };
+    },
+
+    {
+        Identifier = "xcode.lang.haml.comment";
+        Syntax = {
+            Start = "=begin";
+            End = "=end";
+            Foldable = YES;
+            IncludeRules = ( "xcode.lang.url", "xcode.lang.url.mail", "xcode.lang.comment.mark" );
+            Type = "xcode.syntax.comment";
+        };
+    },
+)
+
