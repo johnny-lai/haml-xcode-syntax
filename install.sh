@@ -33,10 +33,12 @@ read -p "Press [Enter] to continue"
 # Now merge in the additonal languages to DVTFoundation.xcplugindata
 #
 $PLISTBUDDY "$DVTFOUNDATION_PATH/DVTFoundation.xcplugindata"  -c 'Merge Haml.plist plug-in:extensions'
+$PLISTBUDDY "$DVTFOUNDATION_PATH/DVTFoundation.xcplugindata"  -c 'Merge CoffeeScript.plist plug-in:extensions'
 
 # Copy in the xclangspecs for the languages (assumes in same directory as this shell script)
 #
 cp "$SCRIPT_PATH/Haml.xclangspec" "$DVTFOUNDATION_PATH"
+cp "$SCRIPT_PATH/CoffeeScript.xclangspec" "$DVTFOUNDATION_PATH"
 
 # Remove any cached Xcode plugins
 #
