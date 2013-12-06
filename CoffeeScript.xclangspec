@@ -1,551 +1,412 @@
-// Ruby
 (
-
-/****************************************************************************/
-// MARK: Ruby keywords
-/****************************************************************************/
-
-    {
-        Identifier = "xcode.lang.coffeescript.identifier";
-        Syntax = {
-            StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_[";
-            Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_?[]";
-            Words = (
-                "BEGIN",
-                "END",
-                "__FILE__",
-                "__LINE__",
-                "alias",
-                "and",
-                "begin",
-                "break",
-                "case",
-                "class",
-                "def",
-                "defined?",
-                "do",
-                "else",
-                "elsif",
-                "end",
-                "ensure",
-                "extends",
-                "false",
-                "for",
-                "if",
-                "in",
-                "module",
-                "next",
-                "nil",
-                "not",
-                "or",
-                "redo",
-                "rescue",
-                "retry",
-                "return",
-                "self",
-                "super",
-                "then",
-                "true",
-                "undef",
-                "unless",
-                "until",
-                "when",
-                "while",
-                "yield",
-                
-                "include",
-                "private",
-                "protected",
-                "public",
-                "raise",
-                "require",
-             );
-            Type = "xcode.syntax.keyword";
-            AltType = "xcode.syntax.identifier";    // non-keywords are identifiers
-        };
-    },
-
-
-/****************************************************************************/
-// MARK: Ruby Syntax Coloring
-/****************************************************************************/
-
-    {
-        Identifier = "xcode.lang.coffeescript";
-        Description = "CoffeeScript Coloring";
-        BasedOn = "xcode.lang.simpleColoring";
-        IncludeInMenu = YES;
-        Name = "Ruby";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer.toplevel";
-            IncludeRules = (
-                "xcode.lang.coffeescript.module",
-                "xcode.lang.coffeescript.class",
-                "xcode.lang.coffeescript.function",
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",                
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-            Type = "xcode.syntax.plain";
-        };
-    },
-    {
-		// XML and HTML use this rule for embedded php
-        Identifier = "xcode.lang.coffeescript.inxml";
-        BasedOn = "xcode.lang.haml";
-        Syntax = {
-            Start = "<%";
-            End = "%>";
+	{
+		Identifier = "xcode.lang.coffeescript.identifier";
+		Syntax = {
+			StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_";
+			Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+			Words = (
+				and,
+				as,
+				assert,
+				break,
+				class,
+				continue,
+				def,
+				del,
+				elif,
+				else,
+				except,
+				exec,
+				extends,
+				finally,
+				for,
+				from,
+				global,
+				if,
+				import,
+				in,
+				is,
+				isnt,
+				lambda,
+				not,
+				or,
+				pass,
+				print,
+				raise,
+				return,
+				this,
+				try,
+				while,
+				with,
+				yield,
+				None,
+			);
+			Type = "xcode.syntax.keyword";
+			AltType = "xcode.syntax.identifier";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript";
+		Description = "CoffeeScript Coloring";
+		BasedOn = "xcode.lang.simpleColoring";
+		IncludeInMenu = YES;
+		Name = CoffeeScript;
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer";
+			IncludeRules = (
+				"xcode.lang.coffeescript.class",
+				"xcode.lang.coffeescript.function",
+				"xcode.lang.coffeescript.block",
+				"xcode.lang.coffeescript.bracketexpr",
+				"xcode.lang.coffeescript.parenexpr",
+			);
+			Type = "xcode.syntax.plain";
+			"DirtyPreviousRightEdge" = YES;
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.lexer";
+		Syntax = {
+			"SourceScannerClassName" = DVTPythonScanner;
+			IncludeRules = (
+				"xcode.lang.comment.singleline.pound",
+				"xcode.lang.coffeescript.string.tripledoublequote",
+				"xcode.lang.coffeescript.string.triplesinglequote",
+				"xcode.lang.coffeescript.string.unicode.tripledoublequote",
+				"xcode.lang.coffeescript.string.unicode.triplesinglequote",
+				"xcode.lang.coffeescript.string.unicode",
+				"xcode.lang.coffeescript.string.raw.tripledoublequote",
+				"xcode.lang.coffeescript.string.raw.triplesinglequote",
+				"xcode.lang.coffeescript.string.raw",
+				"xcode.lang.coffeescript.string.rawbytes.tripledoublequote",
+				"xcode.lang.coffeescript.string.rawbytes.triplesinglequote",
+				"xcode.lang.coffeescript.string.rawbytes",
+				"xcode.lang.coffeescript.string.bytesraw.tripledoublequote",
+				"xcode.lang.coffeescript.string.bytesraw.triplesinglequote",
+				"xcode.lang.coffeescript.string.bytesraw",
+				"xcode.lang.coffeescript.string.bytes.tripledoublequote",
+				"xcode.lang.coffeescript.string.bytes.triplesinglequote",
+				"xcode.lang.coffeescript.string.bytes",
+				"xcode.lang.string",
+				"xcode.lang.character",
+				"xcode.lang.number",
+				"xcode.lang.coffeescript.identifier",
+			);
+			Type = "xcode.syntax.plain";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.indent";
+		Syntax = {
+			Type = "xcode.syntax.plain";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.dedent";
+		Syntax = {
+			Type = "xcode.syntax.plain";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.lexer.simple";
+		Syntax = {
+			IncludeRules = (
+				"xcode.lang.comment.singleline.pound",
+				"xcode.lang.coffeescript.string.tripledoublequote",
+				"xcode.lang.coffeescript.string.triplesinglequote",
+				"xcode.lang.coffeescript.string.unicode.tripledoublequote",
+				"xcode.lang.coffeescript.string.unicode.triplesinglequote",
+				"xcode.lang.coffeescript.string.unicode",
+				"xcode.lang.coffeescript.string.raw.tripledoublequote",
+				"xcode.lang.coffeescript.string.raw.triplesinglequote",
+				"xcode.lang.coffeescript.string.raw",
+				"xcode.lang.coffeescript.string.rawbytes.tripledoublequote",
+				"xcode.lang.coffeescript.string.rawbytes.triplesinglequote",
+				"xcode.lang.coffeescript.string.rawbytes",
+				"xcode.lang.coffeescript.string.bytesraw.tripledoublequote",
+				"xcode.lang.coffeescript.string.bytesraw.triplesinglequote",
+				"xcode.lang.coffeescript.string.bytesraw",
+				"xcode.lang.coffeescript.string.bytes.tripledoublequote",
+				"xcode.lang.coffeescript.string.bytes.triplesinglequote",
+				"xcode.lang.coffeescript.string.bytes",
+				"xcode.lang.string",
+				"xcode.lang.character",
+				"xcode.lang.number",
+				"xcode.lang.coffeescript.identifier",
+			);
+			Type = "xcode.syntax.plain";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.class";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer";
+			Rules = (
+				"xcode.lang.coffeescript.class.declarator",
+				"xcode.lang.coffeescript.block",
+			);
+			Type = "xcode.syntax.definition.class";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.class.declarator";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer";
+			Rules = (
+				class,
+				"xcode.lang.coffeescript.name",
+				"xcode.lang.coffeescript.parenexpr?",
+				":",
+			);
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.function";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer";
+			Rules = (
+				"xcode.lang.coffeescript.function.declarator",
+				"xcode.lang.coffeescript.block",
+			);
+			Type = "xcode.syntax.definition.function";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.function.declarator";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer";
+			Rules = (
+				def,
+				"xcode.lang.coffeescript.name",
+				"xcode.lang.coffeescript.parenexpr",
+				":",
+			);
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.block";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer";
+			Start = "xcode.lang.coffeescript.indent";
+			End = "xcode.lang.coffeescript.dedent";
 			Foldable = YES;
-            ParseEndBeforeIncludedRules = YES;
-            IncludeRules = (
-                "xcode.lang.haml",
-            );
-            Type = "xcode.syntax.keyword";
-        };
-    },
+			Recursive = YES;
+			IncludeRules = (
+				"xcode.lang.coffeescript.class",
+				"xcode.lang.coffeescript.function",
+				"xcode.lang.coffeescript.bracketexpr",
+				"xcode.lang.coffeescript.parenexpr",
+			);
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.name";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer";
+			Rules = (
+				"xcode.lang.coffeescript.identifier",
+			);
+			Type = "xcode.syntax.name.partial";
+		};
+	},
     {
-		// XML and HTML use this rule for embedded php
-        Identifier = "xcode.lang.coffeescript.inxml2";
-        BasedOn = "xcode.lang.haml";
-        Syntax = {
-            Start = "<%%";
-            End = "%>";
+		Identifier = "xcode.lang.coffeescript.string.tripledoublequote";
+		Syntax = {
+			Start = "\"\"\"";
+			EscapeChar = "\\";
+			End = "\"\"\"";
 			Foldable = YES;
-            ParseEndBeforeIncludedRules = YES;
-            IncludeRules = (
-                "xcode.lang.haml",
-            );
-            Type = "xcode.syntax.keyword";
-        };
-    },
-    
-    // The following rule returns tokens to the other rules
+			Type = "xcode.syntax.string";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.string.triplesinglequote";
+		Syntax = {
+			Start = "'''";
+			EscapeChar = "\\";
+			End = "'''";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
     {
-        Identifier = "xcode.lang.coffeescript.lexer";
+        Identifier = "xcode.lang.coffeescript.string.unicode";
         Syntax = {
-            IncludeRules = (
-                "xcode.lang.coffeescript.comment",
-                "xcode.lang.coffeescript.stringeval",
-                "xcode.lang.comment.singleline.pound",
-                "xcode.lang.string",
-                "xcode.lang.character",
-                "xcode.lang.coffeescript.identifier",
-                "xcode.lang.number",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.lexer.toplevel";
-        Syntax = {
-            IncludeRules = (
-                "xcode.lang.coffeescript.comment",
-                "xcode.lang.coffeescript.stringeval",
-                "xcode.lang.comment.singleline.pound",
-                "xcode.lang.string",
-                "xcode.lang.character",
-                "xcode.lang.coffeescript.module.declarator",
-                "xcode.lang.coffeescript.class.declarator",
-                "xcode.lang.coffeescript.function.declarator",
-                "xcode.lang.coffeescript.identifier",
-                "xcode.lang.number",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.module";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer.toplevel";
-            Start = "xcode.lang.coffeescript.module.declarator";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.class",
-                "xcode.lang.coffeescript.function",
-            );
-            Type = "xcode.syntax.definition.class";
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.module.declarator";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Rules = (
-                "module",
-                "xcode.lang.coffeescript.identifier",
-            );
-            Type = "xcode.syntax.name.partial";
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.class";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer.toplevel";
-            Start = "xcode.lang.coffeescript.class.declarator";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.function",
-            );
-            Type = "xcode.syntax.definition.class";
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.class.declarator";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Rules = (
-                "class",
-                "xcode.lang.coffeescript.identifier",
-                "xcode.lang.coffeescript.superclass?"
-            );
-            Type = "xcode.syntax.name.partial";
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.superclass";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Rules = (
-                "<",
-                "xcode.lang.coffeescript.identifier",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.function";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer.toplevel";
-            Start = "xcode.lang.coffeescript.function.declarator";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",                
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-            Type = "xcode.syntax.definition.function";
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.function.declarator";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Rules = (
-                "def",
-                "xcode.lang.coffeescript.function.name",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.function.name";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Rules = (
-                "xcode.lang.coffeescript.identifier",
-                "xcode.lang.coffeescript.function.name.more?",
-            );
-            Type = "xcode.syntax.name.partial";
+            CaseSensitive = NO;
+            Start = "u\"";
+            EscapeChar = "\\";
+            End = "\"";
+            AltEnd = "\n";
+            Type = "xcode.syntax.string";
         };
     },
     {
-        Identifier = "xcode.lang.coffeescript.function.name.more";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Rules = (
-                ".",
-                "xcode.lang.coffeescript.identifier",
-            );
-            Type = "xcode.syntax.name.partial";
-        };
-    },
-    
-/****************************************************************************/
-// MARK: Ruby blocks
-/****************************************************************************/
- {
-        Identifier = "xcode.lang.coffeescript.block";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "{";
-            End = "}";
-            Foldable = YES;
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",                
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
+		Identifier = "xcode.lang.coffeescript.string.unicode.tripledoublequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "u\"\"\"";
+			EscapeChar = "\\";
+			End = "\"\"\"";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.string.unicode.triplesinglequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "u'''";
+			EscapeChar = "\\";
+			End = "'''";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
     {
-        Identifier = "xcode.lang.coffeescript.block.if";
+        Identifier = "xcode.lang.coffeescript.string.raw";
         Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "if";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            StartAtBOL = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.block.while";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "while";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            StartAtBOL = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.block.until";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "until";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            StartAtBOL = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.block.unless";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "unless";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            StartAtBOL = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.block.for";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "for";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            StartAtBOL = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.block.case";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "case";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            StartAtBOL = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.begin",
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.block.begin";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "begin";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.do",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.block.do";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "do";
-            End = "end";
-            Foldable = YES;
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.block",
-                "xcode.lang.coffeescript.block.if",
-                "xcode.lang.coffeescript.block.while",
-                "xcode.lang.coffeescript.block.until",
-                "xcode.lang.coffeescript.block.unless",
-                "xcode.lang.coffeescript.block.for",
-                "xcode.lang.coffeescript.block.case",
-                "xcode.lang.coffeescript.block.begin",
-                "xcode.lang.coffeescript.bracketexpr",
-                "xcode.lang.coffeescript.parenexpr",
-            );
-        };
-    },
-    
-    {
-        Identifier = "xcode.lang.coffeescript.parenexpr";
-        Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "(";
-            End = ")";
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.bracketexpr",
-            );
+            CaseSensitive = NO;
+            Start = "r\"";
+            End = "\"";
+            AltEnd = "\n";
+            Type = "xcode.syntax.string";
         };
     },
     {
-        Identifier = "xcode.lang.coffeescript.bracketexpr";
+		Identifier = "xcode.lang.coffeescript.string.raw.tripledoublequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "r\"\"\"";
+			End = "\"\"\"";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.string.raw.triplesinglequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "r'''";
+			End = "'''";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+	{
+        Identifier = "xcode.lang.coffeescript.string.bytes";
         Syntax = {
-            Tokenizer = "xcode.lang.coffeescript.lexer";
-            Start = "[";
-            End = "]";
-            Recursive = YES;
-            IncludeRules = (
-                "xcode.lang.coffeescript.parenexpr",
-            );
+            CaseSensitive = NO;
+            Start = "b\"";
+            EscapeChar = "\\";
+            End = "\"";
+            AltEnd = "\n";
+            Type = "xcode.syntax.string";
         };
     },
-    
     {
-        Identifier = "xcode.lang.coffeescript.stringeval";
-        Syntax = {
-            Start = "#{";
-            End = "}";
-        };
-    },
-
+		Identifier = "xcode.lang.coffeescript.string.bytes.tripledoublequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "b\"\"\"";
+			EscapeChar = "\\";
+			End = "\"\"\"";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.string.bytes.triplesinglequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "b'''";
+			EscapeChar = "\\";
+			End = "'''";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
     {
-        Identifier = "xcode.lang.coffeescript.comment";
+        Identifier = "xcode.lang.coffeescript.string.rawbytes";
         Syntax = {
-            Start = "=begin";
-            End = "=end";
-            Foldable = YES;
-            IncludeRules = ( "xcode.lang.url", "xcode.lang.url.mail", "xcode.lang.comment.mark" );
-            Type = "xcode.syntax.comment";
+            CaseSensitive = NO;
+            Start = "rb\"";
+            End = "\"";
+            AltEnd = "\n";
+            Type = "xcode.syntax.string";
         };
     },
+    {
+		Identifier = "xcode.lang.coffeescript.string.rawbytes.tripledoublequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "rb\"\"\"";
+			End = "\"\"\"";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.string.rawbytes.triplesinglequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "rb'''";
+			End = "'''";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+    {
+        Identifier = "xcode.lang.coffeescript.string.bytesraw";
+        Syntax = {
+            CaseSensitive = NO;
+            Start = "br\"";
+            End = "\"";
+            AltEnd = "\n";
+            Type = "xcode.syntax.string";
+        };
+    },
+    {
+		Identifier = "xcode.lang.coffeescript.string.bytesraw.tripledoublequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "br\"\"\"";
+			End = "\"\"\"";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.string.bytesraw.triplesinglequote";
+		Syntax = {
+            CaseSensitive = NO;
+			Start = "br'''";
+			End = "'''";
+			Foldable = YES;
+			Type = "xcode.syntax.string";
+		};
+	},
+    {
+		Identifier = "xcode.lang.coffeescript.parenexpr";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer.simple";
+			Start = "(";
+			End = ")";
+			Recursive = YES;
+			IncludeRules = (
+				"xcode.lang.coffeescript.bracketexpr",
+			);
+		};
+	},
+	{
+		Identifier = "xcode.lang.coffeescript.bracketexpr";
+		Syntax = {
+			Tokenizer = "xcode.lang.coffeescript.lexer.simple";
+			Start = "[";
+			End = "]";
+			Recursive = YES;
+			IncludeRules = (
+				"xcode.lang.coffeescript.parenexpr",
+			);
+		};
+	},
 )
-
