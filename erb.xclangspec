@@ -1,0 +1,550 @@
+// Ruby
+(
+
+/****************************************************************************/
+// MARK: Ruby keywords
+/****************************************************************************/
+
+    {
+        Identifier = "xcode.lang.erb.identifier";
+        Syntax = {
+            StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_[";
+            Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_?[]";
+            Words = (
+                "BEGIN",
+                "END",
+                "__FILE__",
+                "__LINE__",
+                "alias",
+                "and",
+                "begin",
+                "break",
+                "case",
+                "class",
+                "def",
+                "defined?",
+                "do",
+                "else",
+                "elsif",
+                "end",
+                "ensure",
+                "false",
+                "for",
+                "if",
+                "in",
+                "module",
+                "next",
+                "nil",
+                "not",
+                "or",
+                "redo",
+                "rescue",
+                "retry",
+                "return",
+                "self",
+                "super",
+                "then",
+                "true",
+                "undef",
+                "unless",
+                "until",
+                "when",
+                "while",
+                "yield",
+                
+                "include",
+                "private",
+                "protected",
+                "public",
+                "raise",
+                "require",
+             );
+            Type = "xcode.syntax.keyword";
+            AltType = "xcode.syntax.identifier";    // non-keywords are identifiers
+        };
+    },
+
+
+/****************************************************************************/
+// MARK: Ruby Syntax Coloring
+/****************************************************************************/
+
+    {
+        Identifier = "xcode.lang.erb";
+        Description = "Ruby Coloring";
+        BasedOn = "xcode.lang.simpleColoring";
+        IncludeInMenu = YES;
+        Name = "Ruby";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer.toplevel";
+            IncludeRules = (
+                "xcode.lang.erb.module",
+                "xcode.lang.erb.class",
+                "xcode.lang.erb.function",
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",                
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+            Type = "xcode.syntax.plain";
+        };
+    },
+    {
+		// XML and HTML use this rule for embedded php
+        Identifier = "xcode.lang.erb.inxml";
+        BasedOn = "xcode.lang.erb";
+        Syntax = {
+            Start = "<%";
+            End = "%>";
+			Foldable = YES;
+            ParseEndBeforeIncludedRules = YES;
+            IncludeRules = (
+                "xcode.lang.erb",
+            );
+            Type = "xcode.syntax.keyword";
+        };
+    },
+    {
+		// XML and HTML use this rule for embedded php
+        Identifier = "xcode.lang.erb.inxml2";
+        BasedOn = "xcode.lang.erb";
+        Syntax = {
+            Start = "<%%";
+            End = "%>";
+			Foldable = YES;
+            ParseEndBeforeIncludedRules = YES;
+            IncludeRules = (
+                "xcode.lang.erb",
+            );
+            Type = "xcode.syntax.keyword";
+        };
+    },
+    
+    // The following rule returns tokens to the other rules
+    {
+        Identifier = "xcode.lang.erb.lexer";
+        Syntax = {
+            IncludeRules = (
+                "xcode.lang.erb.comment",
+                "xcode.lang.erb.stringeval",
+                "xcode.lang.comment.singleline.pound",
+                "xcode.lang.string",
+                "xcode.lang.character",
+                "xcode.lang.erb.identifier",
+                "xcode.lang.number",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.lexer.toplevel";
+        Syntax = {
+            IncludeRules = (
+                "xcode.lang.erb.comment",
+                "xcode.lang.erb.stringeval",
+                "xcode.lang.comment.singleline.pound",
+                "xcode.lang.string",
+                "xcode.lang.character",
+                "xcode.lang.erb.module.declarator",
+                "xcode.lang.erb.class.declarator",
+                "xcode.lang.erb.function.declarator",
+                "xcode.lang.erb.identifier",
+                "xcode.lang.number",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.module";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer.toplevel";
+            Start = "xcode.lang.erb.module.declarator";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.class",
+                "xcode.lang.erb.function",
+            );
+            Type = "xcode.syntax.definition.class";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.module.declarator";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Rules = (
+                "module",
+                "xcode.lang.erb.identifier",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.class";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer.toplevel";
+            Start = "xcode.lang.erb.class.declarator";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.function",
+            );
+            Type = "xcode.syntax.definition.class";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.class.declarator";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Rules = (
+                "class",
+                "xcode.lang.erb.identifier",
+                "xcode.lang.erb.superclass?"
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.superclass";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Rules = (
+                "<",
+                "xcode.lang.erb.identifier",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.function";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer.toplevel";
+            Start = "xcode.lang.erb.function.declarator";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",                
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+            Type = "xcode.syntax.definition.function";
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.function.declarator";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Rules = (
+                "def",
+                "xcode.lang.erb.function.name",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.function.name";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Rules = (
+                "xcode.lang.erb.identifier",
+                "xcode.lang.erb.function.name.more?",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    {
+        Identifier = "xcode.lang.erb.function.name.more";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Rules = (
+                ".",
+                "xcode.lang.erb.identifier",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    
+/****************************************************************************/
+// MARK: Ruby blocks
+/****************************************************************************/
+ {
+        Identifier = "xcode.lang.erb.block";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "{";
+            End = "}";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",                
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.if";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "if";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.while";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "while";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.until";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "until";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.unless";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "unless";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.for";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "for";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.case";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "case";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            StartAtBOL = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.begin",
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.begin";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "begin";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.do",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.block.do";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "do";
+            End = "end";
+            Foldable = YES;
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.block",
+                "xcode.lang.erb.block.if",
+                "xcode.lang.erb.block.while",
+                "xcode.lang.erb.block.until",
+                "xcode.lang.erb.block.unless",
+                "xcode.lang.erb.block.for",
+                "xcode.lang.erb.block.case",
+                "xcode.lang.erb.block.begin",
+                "xcode.lang.erb.bracketexpr",
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.parenexpr";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "(";
+            End = ")";
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.bracketexpr",
+            );
+        };
+    },
+    {
+        Identifier = "xcode.lang.erb.bracketexpr";
+        Syntax = {
+            Tokenizer = "xcode.lang.erb.lexer";
+            Start = "[";
+            End = "]";
+            Recursive = YES;
+            IncludeRules = (
+                "xcode.lang.erb.parenexpr",
+            );
+        };
+    },
+    
+    {
+        Identifier = "xcode.lang.erb.stringeval";
+        Syntax = {
+            Start = "#{";
+            End = "}";
+        };
+    },
+
+    {
+        Identifier = "xcode.lang.erb.comment";
+        Syntax = {
+            Start = "=begin";
+            End = "=end";
+            Foldable = YES;
+            IncludeRules = ( "xcode.lang.url", "xcode.lang.url.mail", "xcode.lang.comment.mark" );
+            Type = "xcode.syntax.comment";
+        };
+    },
+)
+
